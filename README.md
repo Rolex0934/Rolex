@@ -1,34 +1,38 @@
 # Shopon‑CLI
 
-A simple Python console shopping app with GST calculation, QR‑code payments, and automated receipt generation.
+A lightweight Python console shopping app with GST calculation, multiple payment options (Credit Card, QR Scan + OTP, Cash on Delivery), and automated receipt generation.
 
-##  Features
-- Login simulation (username/password)
-- Browse and add items by category (Electronics, Fashion, Stationaries)
-- GST applied per category (18%, 12%, 8%)
-- Payment options: Credit Card, QR Scan + OTP, Cash on Delivery
-- Generates a receipt file (`receipt.txt`) with invoice number and timestamp
+---
 
-##  Installation
-1. Clone the repo:
+## Features
+- User login simulation
+- Browse products by category: **Electronics**, **Fashion**, **Stationaries**
+- Category-based GST rates: 18%, 12%, and 8%
+- Payment methods:
+  - Credit Card
+  - QR Code scan with OTP
+  - Cash on Delivery
+- Generates a receipt (`receipt.txt`) with invoice number and timestamp
+
+---
+
+## Installation & Usage
+1. Clone the repository:
    ```bash
    git clone <your-repo-url>
    cd <your-repo-directory>
-Install required packages:
+Install dependencies:
 
 bash
 Copy
 Edit
 pip install qrcode pyqrcode
-Usage
-Run the app:
+Run the application:
 
 bash
 Copy
 Edit
 python main.py
-Follow prompts to log in, browse categories, add items to your cart, choose a payment method, and receive your receipt.
-
 License
 MIT
 
@@ -38,13 +42,6 @@ Edit
 
 ---
 
-###  Why This Works
-- **Quick overview** at the start—what the project is and what it does.  
-  :contentReference[oaicite:0]{index=0}  
-- **Clear section headers** make scanning easy and intuitive.  
-  :contentReference[oaicite:1]{index=1}  
-- **No unnecessary explanations**—just enough to get started.
-
-
-
-Ask ChatGPT
+om/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) :contentReference[oaicite:0]{index=0})
+- **Concise**: Just enough information to get started without overwhelming the reader.
+- **Markdown format**: GitHub-friendly, easy to read, and visually appealing. ([medium.com](https:
