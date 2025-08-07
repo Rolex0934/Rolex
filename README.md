@@ -47,11 +47,4 @@ Edit
 
 
 
-
-
-
-
-
-Sources
-
 Ask ChatGPT
