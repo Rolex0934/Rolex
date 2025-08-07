@@ -1,0 +1,267 @@
+import qrcode
+import pyqrcode
+import random
+class A:
+    def __init__(self):
+        self.cart=[]
+        self.Electronics_gst=0.18
+        self.Fashion_gst=0.12
+        self.Stationaries_gst=0.08
+    
+
+    def view_cart(self):
+        if not self.cart:
+            print("Your cart is empty.")
+            return
+        total = 0
+        for index, item in enumerate(self.cart, start=1):
+            pid,name,price,category = item
+            print(f"{category}---> {index}. {name} — Rs{price:.2f}")
+            total += price
+        print(f"Total amount: Rs{total:.2f}")
+        choice = input("Enter the item number you want to buy: ").strip()
+        if not choice.isdigit():
+            print("Please enter a valid number.")
+            return
+        idx = int(choice) - 1
+        if idx < 0 or idx >= len(self.cart):
+            print("Invalid item number.")
+            return
+
+        pid, name, price, category = self.cart[idx]
+        if category == "Electronics":
+                    self.Electronics_gst = 0.18
+                    self.gst = self.Electronics_gst * price
+                    self.total = price + self.gst
+                    print(f"GST for {name} is {self.gst:.2f}")
+                    print(f"Total price for {name} is {self.total:.2f}")
+        elif category == "Fashion":
+                    self.Fashion_gst = 0.12
+                    self.gst = self.Fashion_gst * price
+                    self.total = price + self.gst
+                    print(f"GST for {name} is {self.gst:.2f}")
+                    print(f"Total price for {name} is {self.total:.2f}")
+        elif category == "Stationaries":
+                    self.Stationaries_gst = 0.8
+                    self.gst = self.Stationaries_gst * price
+                    self.total = price + self.gst
+                    print(f"GST for {name} is {self.gst:.2f}")
+                    print(f"Total price for {name} is {self.total:.2f}")
+        else:
+                    print("Invalid product category")
+
+        print("1.Credit card \n2.Scan and Pay \n3.Cash on Deleviery")
+        ch=int(input("Enter the option you want to pay: "))
+        if ch==1:
+                    Creditno=input("Enter Your Credit Card Number: ")
+                    if len(Creditno)==11:
+                        print(f"You have purchased {name} for Rs{self.total:.2f}")
+                        self.cart.remove(item)
+                        from time import strftime
+                        data = strftime('%H:%M:%S %p\n%d-%m-%y')
+                        InvoiceNO=random.randint(1000,9999)
+                        var=open("reciept.txt",'w')
+                        var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
+                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
+                        var.write(f"Total Price:{self.total:.2f}\n")
+                        var.write(f"Payment Method:Credit Card\n")
+                        var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
+                        var.write("Thank you for shopping with us.")
+                        var.close()
+                        
+                    else:
+                        print("Invalid Number")
+                
+        elif ch == 2:
+                    data = random.randint(0000,9999)
+                    qr = pyqrcode.create(data)
+                    print(qr.terminal(module_color='black', background='white', quiet_zone=1))
+                    print("Scan this QR code with your phone to complete payment.")
+                    ch=int(input("Enter The OTP:"))
+                    if ch==data:
+                        print(f"You have purchased {name} for Rs{self.total:.2f}")
+                        self.cart.remove(item)
+                        from time import strftime
+                        var=open("reciept.txt",'w')
+                        data = strftime('%H:%M:%S %p\n%d-%m-%y')
+                        InvoiceNO=random.randint(1000,9999)
+                        var=open("reciept.txt",'w')
+                        var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
+                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
+                        var.write(f"Total Price:{self.total:.2f}\n")
+                        var.write(f"Payment Method:Scan and Pay\n")
+                        var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
+                        var.write("Thank you for shopping with us.")
+                        var.close()
+                    else:
+                        print("invalid OTP")
+                
+
+        elif ch == 3:
+                    ch=input("Enter Y to proceed Your order or N to exit: ").lower()
+                    if ch == "y":
+                        print("Your order is placed!")
+                        print(f"You have purchased {name} for Rs{self.total:.2f}")
+                        self.cart.remove(item)
+                        from time import strftime
+                        data = strftime('%H:%M:%S %p\n%d-%m-%y')
+                        InvoiceNO=random.randint(1000,9999)
+                        var=open("reciept.txt",'w')
+                        var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
+                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
+                        var.write(f"Total Price:{self.total:.2f}\n")
+                        var.write(f"Payment Method:Cash on delievery\n")
+                        var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
+                        var.write("Thank you for shopping with us.")
+                        var.close()
+                    if ch == "n":
+                        print("Thank You for visiting us")
+                       
+
+        else:
+            print("Product not found in cart")
+            
+
+
+
+    def User(self):
+        user="ritesh"
+        passw=1234
+        while(True):
+            username=input("Enter Your username:").lower()
+            if username == user:
+                password=int(input("Enter Your Password:"))
+                if password==passw:
+                    print("\nWelcome",user)
+                    while(True):
+                        print("\nWelcome to the category page")
+                        print("1. Electronics \n2. Fashion \n3. Stationaries\n4.Exit ")
+                        choice=int(input("Enter Your Choice:"))
+                        if choice == 1:
+                            self.Electronics()       
+                        elif choice == 2:
+                            self.Fashion()
+                        elif choice == 3:
+                            self.Stationaries()
+                        elif choice == 4:
+                            return  
+                        else:
+                            print("Invalid Choice")
+
+                   
+                else:
+                    print("Invalid Password")
+            else:
+                print("Invalid Username")
+           
+    def Electronics(self):
+        self.catalog = [
+            (101, "Smartphone", 29900),
+            (102, "Laptop", 79999),
+            (103, "Headphones", 4950),
+            (104, "Power Bank", 1990),
+            (105, "Smartwatch", 10900),
+            (106, "Clock",12000),
+        ]
+
+        print("\nWelcome to the Electronics page")
+        while True:
+            for pid, name, price in self.catalog:
+                print(f"{pid}: {name} — Rs{price}")
+
+            ch = input("Enter product ID to buy (or 0 to go back): ").strip()
+            if ch == "0":
+                return
+            if not ch.isdigit():
+                print("Type a number please.")
+                continue
+
+            prod_id = int(ch)
+            for pid, name, price in self.catalog:
+                if pid == prod_id:
+                    self.cart.append((pid, name, price,"Electronics"))
+                    print(f" Added {name} to cart.\n")
+                    break
+            else:
+                print("Product not found. Try again.\n")
+
+    def Fashion(self):
+        Fashion = [
+                (201, "T-shirt",     499.00),
+                (202, "Jeans",      999.00),
+                (203, "Sneakers",   1199.00),
+                (204, "Net Saree",   950.00),  
+                (205, "Fancy Saree", 1450.00), 
+                (206, "Kurties",     550.00),  
+                (207, "Ankle Socks (pack)", 95.00),
+            ]
+        print("\nWelcome to the Fashion page")
+        while True:
+            for pid, name, price in Fashion:
+                print(f"{pid}: {name} — Rs{price}")
+
+            ch = input("Enter product ID to buy (or 0 to go back): ").strip()
+            if ch == "0":
+                return
+            if not ch.isdigit():
+                print("Type a number please.")
+                continue
+
+            prod_id = int(ch)
+            for pid, name, price in Fashion:
+                if pid == prod_id:
+                    self.cart.append((pid, name, price,"Fashion"))
+                    print(f" Added {name} to cart.\n")
+                    break
+            else:
+                print("Product not found. Try again.\n")
+
+    def Stationaries(self):
+        Stationaries = [
+                    (301, "Notebook",          32.00),   
+                    (302, "Ballpoint Pen",     5.00),   
+                    (303, "Pencil Pack (10)", 20.00),    
+                    (304, "Glue Stick",        50.00),  
+                    (305, "Highlighter (single)",  40.00), 
+                    (306, "Eraser & Sharpener Set", 30.00),
+                    (307, "Geometry Box",      245.00),
+                ]
+        print("\nWelcome to the Stationaries page")
+        while True:
+            for pid, name, price in Stationaries:
+                print(f"{pid}: {name} — Rs{price}")
+
+            ch =input("Enter product ID to buy (or 0 to go back):").strip()
+            if ch == "0":
+                return
+            if not ch.isdigit():
+                print("Type a number please.")
+                continue
+
+            prod_id = int(ch)
+            for pid, name, price in Stationaries:
+                if pid == prod_id:
+                    self.cart.append((pid, name, price,"Stationaries"))
+                    print(f" Added {name} to cart.\n")
+                    break
+            else:
+                print("Product not found. Try again.\n")
+
+
+    def home(self):
+        while(True):
+            print("\nWelcome to Shopon")
+            print("1.Login \n2.Your Cart \n3.Exit")
+            ch = input("Enter your choice: ").strip()
+            if ch == "1":
+                self.User()
+            elif ch == "2":
+                self.view_cart()
+            elif ch == "3":
+                print("Thank You for visiting the page")
+                break
+            else:
+                print("Invalid choice. Please try again.\n")
+  
+obj=A()
+obj.home()
