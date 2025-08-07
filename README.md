@@ -41,7 +41,3 @@ Copy
 Edit
 
 ---
-
-om/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes) :contentReference[oaicite:0]{index=0})
-- **Concise**: Just enough information to get started without overwhelming the reader.
-- **Markdown format**: GitHub-friendly, easy to read, and visually appealing. ([medium.com](https:
