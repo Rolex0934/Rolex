@@ -1,5 +1,4 @@
 import qrcode
-import pyqrcode
 import random
 class A:
     def __init__(self):
@@ -55,30 +54,42 @@ class A:
         if ch==1:
                     Creditno=input("Enter Your Credit Card Number: ")
                     if len(Creditno)==11:
-                        print(f"You have purchased {name} for Rs{self.total:.2f}")
-                        self.cart.remove(item)
-                        from time import strftime
-                        data = strftime('%H:%M:%S %p\n%d-%m-%y')
-                        InvoiceNO=random.randint(1000,9999)
-                        var=open("reciept.txt",'w')
-                        var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
-                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
-                        var.write(f"Total Price:{self.total:.2f}\n")
-                        var.write(f"Payment Method:Credit Card\n")
-                        var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
-                        var.write("Thank you for shopping with us.")
-                        var.close()
-                        
+                        import pywhatkit
+                        from datetime import datetime, timedelta
+                        phone = input("Enter phone number: ")
+                        otp = str(random.randint(0000,9999))
+                        now = datetime.now()
+                        send_time = now + timedelta(minutes=2)
+                        pywhatkit.sendwhatmsg_instantly(phone, otp, wait_time=10, tab_close=True, close_time=5)
+                        print(f"OTP will be sent at {send_time.hour:02d}:{send_time.minute:02d}")
+                        verify = input("Enter the OTP you have recieved in your Whatsapp : ")
+                        if verify==otp:
+                            print(f"You have purchased {name} for Rs{self.total:.2f}")
+                            self.cart.remove(item)
+                            from time import strftime
+                            data = strftime('%H:%M:%S %p\n%d-%m-%y')
+                            InvoiceNO=random.randint(1000,9999)
+                            var=open("reciept.txt",'w')
+                            var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
+                            var.write(f"Price:{price}\nGST:{self.gst:.2f}\n")
+                            var.write(f"Total Price:{self.total:.2f}\n")
+                            var.write(f"Payment Method:Credit Card\n")
+                            var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
+                            var.write("Thank you for shopping with us.")
+                            var.close()
+                        else:
+                             print("Invalid OTP")
                     else:
                         print("Invalid Number")
                 
         elif ch == 2:
-                    data = random.randint(0000,9999)
-                    qr = pyqrcode.create(data)
-                    print(qr.terminal(module_color='black', background='white', quiet_zone=1))
+                    upi_id = ("8689833280@ibl")
+                    phonpe_url=f"upi://pay?pa={upi_id}&pn=Recipient%20Name&mc=1234"
+                    phonpe_qr = qrcode.make(phonpe_url)
+                    phonpe_qr.show()
                     print("Scan this QR code with your phone to complete payment.")
-                    ch=int(input("Enter The OTP:"))
-                    if ch==data:
+                    confirmation=input("Enter Y when Payment is succesfull: ").lower()
+                    if confirmation == "y":
                         print(f"You have purchased {name} for Rs{self.total:.2f}")
                         self.cart.remove(item)
                         from time import strftime
@@ -87,14 +98,14 @@ class A:
                         InvoiceNO=random.randint(1000,9999)
                         var=open("reciept.txt",'w')
                         var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
-                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
+                        var.write(f"Price:{price}\nGST:{self.gst:.2f}\n")
                         var.write(f"Total Price:{self.total:.2f}\n")
                         var.write(f"Payment Method:Scan and Pay\n")
                         var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
                         var.write("Thank you for shopping with us.")
                         var.close()
                     else:
-                        print("invalid OTP")
+                         print("Payment failed. Please try again.")
                 
 
         elif ch == 3:
@@ -108,7 +119,7 @@ class A:
                         InvoiceNO=random.randint(1000,9999)
                         var=open("reciept.txt",'w')
                         var.write(f"Receipt No:{InvoiceNO}\nDate and Time:{data}\nProduct:{name}\n")
-                        var.write(f"Price:{self.total:.2f}\nGST:{self.gst:.2f}\n")
+                        var.write(f"Price:{price}\nGST:{self.gst:.2f}\n")
                         var.write(f"Total Price:{self.total:.2f}\n")
                         var.write(f"Payment Method:Cash on delievery\n")
                         var.write(f"You have purchased {name} for Rs{self.total:.2f}\n")
@@ -147,8 +158,7 @@ class A:
                             return  
                         else:
                             print("Invalid Choice")
-
-                   
+     
                 else:
                     print("Invalid Password")
             else:
