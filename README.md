@@ -107,6 +107,3 @@ Edit
 - **Technology stack** helps highlight tools and skills.
 - **Planned improvements** showcase future work and professionalism.
 - **License** section clarifies permissions and rights.
-
-   git clone https://github.com/YourUsername/Rolex.git
-   cd Rolex
